@@ -1,0 +1,182 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://cico_learn/v1
+paths:
+  /test:
+    get:
+      responses:
+        "200":
+          description: OK
+
+  /user/signup:
+    post:
+      tags:
+        - Auth
+      summary: User signup
+      requestBody:
+        # description: Description
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UserSignupRequest"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/UserSignupRequest"
+          application/form-data:
+            schema:
+              $ref: "#/components/schemas/UserSignupRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserAuthResponseStatusOK"
+        "400": 
+          description: Bad Request
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserAuthResponseStatusBadRequest"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserAuthResponseStatusInternalServerError"
+          
+
+  /user/login:
+    post:
+      tags:
+        - Auth
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UserLoginRequest"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/UserLoginRequest"
+          application/form-data:
+            schema:
+              $ref: "#/components/schemas/UserLoginRequest"
+      responses:
+        "200":
+          description: OK
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: JWT token
+              example: "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODI4Mzc1NjQsInN1YiI6MTR9.7MaDynnv9oHiM8P2939IDpCKT7Vc7ULRCK4Fsh3AzQQ; Path=/; Max-Age=2592000; HttpOnly; SameSite=Lax"
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserAuthResponseStatusOK"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserAuthResponseStatusBadRequest"
+        "404": 
+          description: User not found
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserAuthResponseStatusNotFound"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserAuthResponseStatusInternalServerError"
+
+
+  /user/logout:
+    post:
+      summary: User logout
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: OK
+          headers:
+            Cookie:
+              description: JWT token given by login
+              required: true
+              schema:
+                type: string
+                example: "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODI4MzgzNzUsInN1YiI6MTR9.nOkVX5hkYKUs8wz7vq8uyTE4IZu5QqvFE43PBZFbn7A; Path=/; HttpOnly; Expires=Tue, 30 Jun 2026 16:52:55 GMT;"
+
+components:
+
+  schemas:
+
+    # User Signup Schema
+    UserSignupRequest:
+      type: object
+      required:
+        - name
+        - username
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        username:
+          type: string
+          example: "john_doe"
+        email:
+          type: string
+          format: email
+          example: "johndoe@example.com"
+        password:
+          type: string
+          example: "password123"
+
+    UserAuthResponseStatusOK:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Signup success"
+
+    UserAuthResponseStatusBadRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Failed to read body"
+
+    UserAuthResponseStatusNotFound:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Failed to login, user not found"
+
+    UserAuthResponseStatusInternalServerError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Failed to login, internal server error"
+          
+    UserLoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "johndoe@example.com"
+        password:
+          type: string
+          example: "password123"
