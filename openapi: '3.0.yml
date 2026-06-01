@@ -3,7 +3,7 @@ info:
   title: API Title
   version: "1.0"
 servers:
-  - url: https://cico_learn/v1
+  - url: https://cico_learn/v1/api
 paths:
   /test:
     get:
@@ -11,6 +11,7 @@ paths:
         "200":
           description: OK
 
+  # Auth path
   /user/signup:
     post:
       tags:
@@ -48,7 +49,6 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/UserAuthResponseStatusInternalServerError"
-          
 
   /user/login:
     post:
@@ -99,7 +99,6 @@ paths:
               schema: 
                 $ref: "#/components/schemas/UserAuthResponseStatusInternalServerError"
 
-
   /user/logout:
     post:
       summary: User logout
@@ -115,11 +114,231 @@ paths:
               schema:
                 type: string
                 example: "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODI4MzgzNzUsInN1YiI6MTR9.nOkVX5hkYKUs8wz7vq8uyTE4IZu5QqvFE43PBZFbn7A; Path=/; HttpOnly; Expires=Tue, 30 Jun 2026 16:52:55 GMT;"
+                
+
+  # Homepage
+  /homepage:
+    get:
+      tags:
+        - Homepage
+      summary: Homepage components
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/HomepageResponseStatusOK"
+                
+
+  # Notifications
+  /notifications:
+    get:
+      tags:
+        - Notification
+      summary: Notification items
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/NotificationsStatusOK"
+                 
+
+  # Vocabulary Lesson
+  /lesson/vocabulary/topic:
+    # Todo: Add params search words and topics
+    get:
+      tags:
+        - Vocabulary Lesson
+      summary: Vocabulary lesson items clicked (topic)
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonTopicStatusOK"
+  # Vocabulary Lesson Draft
+  /lesson/vocabulary/drafts:
+    get:
+      # Todo: Add Params
+      tags:
+        - Vocabulary Lesson - Drafts
+      summary: Get drafts (simple form)
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonDraftsGetStatusOK"
+    post:
+      # Todo: Add Params
+      tags:
+        - Vocabulary Lesson - Drafts
+      summary: Saving word to drafts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonDraftsPostStatusOK"
+  # Vocabulary lesson examples
+  /lesson/vocabulary/examples:
+    # Todo: Add params
+    # Todo: voice (?)
+    get:
+      tags:
+        - Vocabulary Lesson
+      summary: Get examples
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonExamplesGetStatusOK"
+
+  /lesson/vocabulary/type_words:
+    # Todo: Add params
+    post:
+      tags:
+        - Vocabulary Lesson
+      summary: Check if the answer is correct or incorrect
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+
+               $ref: "#/components/schemas/VocabularyLessonTypeWordPostStatusOK"
+
+  /lesson/vocabulary/write_three_sentences:
+    # Todo: Add params
+    post:
+      tags: 
+        - Vocabulary Lesson
+      summary: Check if three typed sentence correct or incorrect
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonWriteSentencesPostStatusOK"
+  /lesson/vocabulary/speak:
+    # Todo: Add params, sound
+    get:
+      tags:
+        - Vocabulary Lesson - Speak
+      summary: Get sentence to practice speaking
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonSpeakGetStatusOK"
+    post:
+      tags:
+        - Vocabulary Lesson - Speak
+      summary: Get accuracy and system feedback
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonSpeakPostStatusOK"
+  
+  /lesson/vocabulary/overall_score:
+    # Todo: Add overall feedback 
+    get:
+      tags:
+        - Vocabulary Lesson
+      summary: Get overall score for this vocab
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VocabularyLessonOverallScoreGetStatusOK"
+    
+                
+  # Grammar Lesson
+  /lesson/grammar:
+    get:
+      tags:
+        - Grammar Lesson
+      summary: Get all exercises
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GrammarLessonGetStatusOK"
+    # post: add overall score
+  /lesson/grammar/exercises:
+    get:
+      tags:
+        - Grammar Lesson
+      summary: Get all exercises
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GrammarLessonExercisesGetStatusOK"
+    post:
+      tags:
+        - Grammar Lesson
+      summary: Get overall score
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GrammarLessonExercisesPostStatusOK"
+                
+
+  # Dialog Lesson
+  # Todo: Add overall score soon
+  /lesson/dialog:
+    get:
+      tags:
+        - Dialog Lesson
+      summary: Get all dialog
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DialogLessonGetStatusOK"
+    post:
+      tags:
+        - Dialog Lesson
+      summary: Check if the user speak the dialog correctly
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DialogLessonPostStatusOK"
+
+
 
 components:
-
   schemas:
-
     # User Signup Schema
     UserSignupRequest:
       type: object
@@ -180,3 +399,451 @@ components:
         password:
           type: string
           example: "password123"
+          
+
+    HomepageResponseStatusOK:
+      type: object
+      properties:
+        announcement:
+          type: object
+          properties:
+            emoticon:
+              type: string
+              example: "😁️"
+            text:
+              type: string
+              example: "Halo Rendy! Mumpum otak masih fresh nih, mau belajar apa?"
+            highlighted_word:
+              type: string
+              example: "Rendy"
+        streak:
+          type: object
+          description: streak days this week (starting from monday)
+          properties:
+            days_streak: 
+              type: array
+              items:
+                type: string
+                enum: [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+              example: ["tuesday", "saturday", "sunday"]
+            lesson_learned:
+              type: integer
+              example: 123
+        recent_lessons:
+          type: array
+          items:
+            description: the type of each lesson
+            oneOf:
+              - $ref: "#/components/schemas/VocabularyComponent"
+              - $ref: "#/components/schemas/GrammarComponent"
+              - $ref: "#/components/schemas/DialogComponent"
+              
+    NotificationsStatusOK:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            description: Notification item
+            type: object
+            properties:
+              title:
+                type: string
+                example: "Welcome!"
+              text:
+                type: string
+                example: "Welcome to CICO Learn app, hope you find this app useful and helpful in your learning journey!"
+              has_been_opened:
+                description: Is the user has opened this notification
+                type: boolean
+                example: true
+              emoticon:
+                type: string
+                example: "🥳️"
+              send_at:
+                description: What's the time that notification was send
+                type: string
+                format: date-time
+                example: "2026-01-01T17:32:28Z"
+          example: [
+            {
+              title: "Welcome!",
+              text: "Welcome to CICO Learn app, hope you find this app useful and helpful in your learning journey!",
+              has_been_opened: true,
+              emoticon: "🥳️",
+              send_at:  "2026-01-01T17:32:28Z"
+            },
+            {
+              title: "Welcome!",
+              text: "Welcome to CICO Learn app, hope you find this app useful and helpful in your learning journey!",
+              has_been_opened: true,
+              emoticon: "🥳️",
+              send_at:  "2026-01-01T17:32:28Z"
+            },
+          ]
+
+    VocabularyLessonTopicStatusOK:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Topic: Foods and Beverage"
+        description:
+          type: string
+          example: "This is most common foods and beverage for a lot of native speaker"
+        vocabularies:
+          type: array
+          items:
+            type: object
+            properties:
+              word:
+                type: string
+                example: "Milk"
+              meaning:
+                type: string
+                example: "Meaning: White liquid produced by mammals"
+              is_saved:
+                type: boolean
+                example: false
+
+    VocabularyLessonDraftsGetStatusOK:
+      type: object
+      properties:
+        drafts:
+          type: array
+          items:
+            type: object
+            properties:
+              image:
+                type: string
+              name:
+                type: string
+                example: "IELTS Words"
+              is_saved_here:
+                type: boolean
+                example: false
+
+    VocabularyLessonDraftsPostStatusOK:
+      type: object
+      properties:
+        word: 
+          type: string
+          example: "Milk"
+        drafts:
+          type: array
+          items:
+            type: object
+            properties:
+              image:
+                type: string
+              name:
+                type: string
+                example: "IELTS Words"
+              is_saved_here:
+                type: boolean
+                example: true
+    VocabularyLessonExamplesGetStatusOK:
+      type: object
+      properties:
+        vocabulary:
+          type: object
+          properties:
+            word:
+              type: string
+              example: "Enchance"
+            word_in_uk:
+              type: string
+              example: "ɪnˈhɑːns"
+            word_in_us:
+              type: string
+              example: "ɪnˈhæns"
+            meaning:
+              type: string
+              example: "to make it better, improve its quality, or increase its value and strength."
+            synonyms:
+              type: string
+              example: "improve, boots, better, increase."
+        Examples:
+          type: array
+          items:
+            type: object
+            properties:
+              example:
+                type: string
+                example: "Pictures can then be enchanced on a pc."
+              meaning:
+                type: string
+                example: "Gambar-gambar tersebut kemudian dapat disempurnakan di komputer."
+
+    VocabularyLessonTypeWordPostStatusOK:
+      # Todo: Add us & uk sound 
+      type: object
+      properties:
+        correct_word: 
+          type: string
+          example: "Enhance"
+        typed_word: 
+          type: string
+          example: "Enchannce"
+        correct: 
+          type: boolean
+          example: false
+
+    VocabularyLessonWriteSentencesPostStatusOK:
+      type: object
+      properties:
+        sentences:
+          type: array
+          items:
+            type: object
+            properties:
+              typed_sentence:
+                type: string
+                example: "It's things like this that enhancce the quality of life."
+              corrected_sentence:
+                type: string
+                example:  "It's things like this that enhance the quality of life."
+              explanation:
+                type: string
+                example: "enchancce must be enchance, since enhance is correct word"
+    VocabularyLessonSpeakGetStatusOK:
+      type: object
+      properties:
+        sentence:
+          type: string
+          example: "So it's a tool to be used to develop and enhance what you do."
+        highlighted_word:
+          type: string
+          example: "enhance"
+    VocabularyLessonSpeakPostStatusOK:
+      type: object
+      properties:
+        sentence:
+          type: string
+          example: "So it's a tool to be used to develop and enhance what you do."
+        highlighted_word:
+          type: string
+          example: "enhance"
+        accuracy:
+          type: number
+          format: float
+          example: 85.3
+        meaning:
+          type: string
+          example: "Jadi, ini adalah alat yang digunakan untuk mengembangkan dan meningkatkan apa yang anda lakukan."
+        # Todo: Add system feedback, what user should and shouldn't
+
+    VocabularyLessonOverallScoreGetStatusOK:
+      # Todo: Add feedback later
+      type: object
+      properties:
+        topic:
+          type: string
+          example: "Words"
+          # enum: ["Words", "Sayings"]
+        vocab:
+          type: string
+          example: "Enhance"
+        overall_score:
+          type: number
+          format: float
+          example: 75.5
+          
+    # Grammar Lesson Response
+    GrammarLessonGetStatusOK:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Nouns"
+        meaning:
+          type: string
+          example: "a word used to identify any of a class of people, places, or things, or to name a particular one of these."
+        sections:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: "Introduction to Nouns"
+              explanations:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    text:
+                      type: string 
+                      example: ""
+                    type:
+                      type: string
+                      example:
+                      enum: ["header", "explanation"]
+                example: [{text: "Pengertian Pronoun (What is Pronoun?)", type: "header"}, {text: "Pronoun adalah kata yang digunakan untuk mengganti noun. Dalam hal ini, noun bisa jadi seseorang, suatu benda, tempat, bahkan tindakan atau gagasan. Yap, benda tersebut bisa jadi benda mati atau benda hidup.", type: "explanation"}]
+              exercise:
+                # Todo: correct the url
+                type: string
+                example: "/lesson/grammar/exercises?name=intro_to_nouns"
+    GrammarLessonExercisesGetStatusOK:
+      type: object
+      properties:
+        exercises:
+          type: array
+          items:
+            type: object
+            properties:
+              question:
+                type: string
+                example: "What's the synonyms of enhance?"
+              a_choice:
+                type: string
+                example: "worstening"
+              b_choice:
+                type: string
+                example: "achivable"
+              c_choice:
+                type: string
+                example: "eatable"
+              d_choice:
+                type: string
+                example: "improve"
+              correct_choice:
+                type: string
+                example: "d"
+                enum: ["a", "b", "c", "d"]
+              explanation:
+                type: string
+                example: "the synonyms of enhance is improve, boots, better, increase."
+    GrammarLessonExercisesPostStatusOK:
+      type: object
+      properties:
+        overall_score:
+          type: number
+          format: float
+          example: 83.3
+          maximum: 100
+          
+    # Dialog Lesson
+    DialogLessonGetStatusOK:
+      type: object
+      properties:
+        dialogs:
+          type: array
+          items:
+            type: object
+            properties:
+              # Todo: Add sound normal and slow
+              dialogs:
+                type: string
+                example: "So it's a tool to be used to develop and enhance what you do!"
+              meaning:
+                type: string
+                example: "Jadi, ini adalah alat yang dapat digunakan untuk mengembangkan dan meningkatkan apa yang Anda lakukan!"
+    DialogLessonPostStatusOK:
+      type: object
+      properties:
+        dialog:
+          type: string
+          example: "So it's a tool to be used to develop and enhance what you do!"
+        misspronounciated_words:
+          type: array
+          items:
+            type: object
+            properties:
+              word:
+                type: string
+                example: "enhance"
+              accuracy:
+                description: The accuracy of each word where the accuracy below 70%
+                type: number
+                format: float
+                example: 55.5
+              user_should_do:
+                description: What the user should do in order to improve their score
+                type: string
+                example: "speak the 'n' in 'enhance' louder"
+        overall_accuracy:
+          type: number
+          format: float
+          example: 67%
+        can_continue:
+          # Todo: Change the number soon
+          description: Return true if there's no words that have accuracy less than 60% and overall accuracy is greater than 67%
+          type: boolean
+          example: false
+        
+
+      
+
+
+    # Homepage component
+    VocabularyComponent:
+      type: object
+      properties:
+        lesson_type:
+          type: string
+          example: "vocabulary"
+          enum: ["vocabulary", "grammar", "dialog"]
+        image:
+          type: string
+          example:
+        title:
+          type: string
+          example: "Verb"
+        total_vocabulary:
+          type: integer
+          example: 67
+        type:
+          type: string
+          # enum: [Words, Idiom, Sayings...]
+          example: "Words"
+        progress:
+          type: number
+          format: float
+          maximum: 100.0
+          example: 54.5
+    GrammarComponent:
+      type: object
+      properties:
+        lesson_type:
+          type: string
+          example: "grammar"
+          enum: ["vocabulary", "grammar", "dialog"]
+        image:
+          type: string
+          example:
+        title:
+          type: string
+          example: "Verb"
+        total_section:
+          type: integer
+          example: 8
+        total_exercise:
+          type: integer
+          example: 123
+        progress:
+          type: number
+          format: float
+          maximum: 100.0
+          example: 54.5
+    DialogComponent:
+      type: object
+      properties:
+        lesson_type:
+          type: string
+          example: "dialog"
+          enum: ["vocabulary", "grammar", "dialog"]
+        image:
+          type: string
+          example:
+        title:
+          type: string
+          example: "Introduction at Office"
+        total_dialog:
+          type: integer
+          example: "32"
+        progress:
+          type: number
+          format: float
+          maximum: 100.0
+          example: 54.5
