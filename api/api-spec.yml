@@ -114,6 +114,22 @@ paths:
               schema:
                 type: string
                 example: "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODI4MzgzNzUsInN1YiI6MTR9.nOkVX5hkYKUs8wz7vq8uyTE4IZu5QqvFE43PBZFbn7A; Path=/; HttpOnly; Expires=Tue, 30 Jun 2026 16:52:55 GMT;"
+  
+
+  # Get user
+  # Todo: add params id
+  /user: # Get user profile
+    get:
+      tags:
+        - User
+      summary: Get all user data
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UserGetStatusOK"
                 
 
   # Homepage
@@ -144,7 +160,81 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/NotificationsStatusOK"
-                 
+                
+
+  # Todo: Add rules and how(????)
+  # Train with AI
+  # /train_with_ai:
+    # get:
+    # post:
+  /train_with_ai/mode:
+    get:
+      description: desc
+      tags:
+        - Train with AI
+      summary: sumary
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainWithAIModeGetStatusOK"
+  /train_with_ai/topics:
+    # Add params mode
+    get:
+      summary: Get all topics from choosen mode
+      tags:
+        - Train with AI
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainWithAITopicsGetStatusOK"
+  /train_with_ai/history:
+    # Todo: All history auth
+    get:
+      summary: Get all history
+      tags:
+        - Train with AI
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainWithAIHistoryGetStatusOK"
+
+
+  # Memorize
+  /memorize:
+    get:
+      tags:
+        - Memorize
+      # summary: 
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/MemorizeGetStatusOK"
+  /memorize/history:
+    get:
+      tags:
+        - Memorize
+      summary: Get all memorize history
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemorizeHistoryGetStatusOK"
+
+        
 
   # Vocabulary Lesson
   /lesson/vocabulary/topic:
@@ -283,7 +373,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GrammarLessonGetStatusOK"
-    # post: add overall score
+    # Todo: post: add overall score
   /lesson/grammar/exercises:
     get:
       tags:
@@ -334,6 +424,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DialogLessonPostStatusOK"
+
 
 
 
@@ -438,6 +529,7 @@ components:
               - $ref: "#/components/schemas/GrammarComponent"
               - $ref: "#/components/schemas/DialogComponent"
               
+
     NotificationsStatusOK:
       type: object
       properties:
@@ -481,6 +573,182 @@ components:
               send_at:  "2026-01-01T17:32:28Z"
             },
           ]
+
+          
+    UserGetStatusOK:
+      type: object
+      properties:
+        background_image:
+          type: string
+          example: "/theimageurl"
+        profile_image:
+          type: string
+          example: "/theimageurl"
+        full_name:
+          type: string
+          example: "Bagastian Ade ni Anjani Haraheta Arabian Kebab Niantiara"
+        activity_this_month:
+          type: array
+          items:
+            type: object
+            properties:
+              day:
+                description: Day in this month (Start from 1 to 28..31)
+                type: integer
+                maximum: 31
+                example: 1
+              total_lesson_learned:
+                description: Total Lesson learned that day
+                type: integer
+                example: 4
+        level:
+          type: string
+          enum: ["Pre-A1(foundation)", "A1(Elementary)", "A2(Pre-Intermediate)", "B1(Intermediate)", "B2(Upper (Intermediate)", "C1(Advanced)", "C2(Proficiency)"]
+          example: "B1(Intermeidate)"
+        app_language:
+          type: string
+          enum: ["Indonesia", "English"]
+          example: "English"
+        target:
+          type: string
+          enum: ["Job Interview", "Understand University Lecture", "Talk to Stranger"]
+          example: "Job Interview"
+        daily_reminder:
+          type: array
+          items:
+            type: string
+            format: time
+          example: ["12:00", "15:00"]
+        time target:
+          # Todo: (???)
+          type: string
+          enum: ["5 Minutes", "10 Minutes", "15 Minutes", "30 Minutes", "45 Minutes", "1 Hour", "2 Hours"]
+          example: "10 Minutes"
+
+
+    MemorizeGetStatusOK:
+      type: object
+      properties:
+        today_vocab:
+          type: object
+          properties:
+            image:
+              type: string
+              example: "/theimageurl"
+            title:
+              type: string
+              example: "Vocab for Today"
+            vocab_total:
+              type: integer
+              example: 100
+            vocab_have_learned:
+              description: Total vocab have learned this day
+              type: integer
+              example: 3
+            vocab_must_learned:
+              description: Total vocab must learned this day
+              type: integer
+              example: 12
+        drafts:
+          type: array
+          items:
+            type: object
+            properties:
+              image:
+                type: string
+                example: "/theimageurl"
+              title:
+                type: string
+                example: "Introduction at Office"
+              vocab_total:
+                type: integer
+                example: 499
+              vocab_have_learned:
+                description: Total vocab have learned this day
+                type: integer
+                example: 3
+              vocab_must_learned:
+                description: Total vocab must learned this day
+                type: integer
+                example: 4
+    MemorizeHistoryGetStatusOK:
+      type: object
+      properties:
+        memorize_histories:
+          type: array
+          items:
+            type: object
+            properties:
+              image:
+                type: string
+                example: "/theimageurl"
+              title:
+                type: string
+                example: ""
+              last_opened:
+                type: string
+                format: date-time
+                example: "2026-01-01T17:32:28Z"
+              vocab_total:
+                type: integer
+                example: 499
+              vocab_have_learned:
+                description: Total vocab have learned this day
+                type: integer
+                example: 3
+              vocab_must_learned:
+                description: Total vocab must learned this day
+                type: integer
+                example: 4
+
+
+    TrainWithAIHistoryGetStatusOK:
+      type: object
+      properties:
+        histories:
+          type: array
+          items:
+            type: object
+            oneOf:
+              - $ref: "#/components/schemas/TrainWithAIFreeTalkHistoryComponent"
+              - $ref: "#/components/schemas/TrainWithAIHistoryComponent"
+    TrainWithAIModeGetStatusOK:
+      type: object
+      properties:
+        histories:
+          type: array
+          items:
+            type: object
+            properties:
+              image:
+                type: string
+                example: "/theimageurl"
+              title:
+                type: string
+                example: "Free Talk"
+              description:
+                type: string
+                example: "Talk with our AI about anything, and our AI will give you feedback, so that you can improve."
+    TrainWithAITopicsGetStatusOK:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            type: object
+            properties:
+              image:
+                type: string
+                example: "/theimageurl"
+              title:
+                type: string
+                example: "Ticket to Ride"
+              scenario:
+                description: Scenario that the user will run
+                type: string
+                example: "Someone wants to buy a ticket to another city at the train station."
+
+
 
     VocabularyLessonTopicStatusOK:
       type: object
@@ -640,7 +908,7 @@ components:
         topic:
           type: string
           example: "Words"
-          # enum: ["Words", "Sayings"]
+          # enum: ["Words", "Sayings"...]
         vocab:
           type: string
           example: "Enhance"
@@ -847,3 +1115,47 @@ components:
           format: float
           maximum: 100.0
           example: 54.5
+      
+          
+           
+
+    # Train with AI History
+    TrainWithAIFreeTalkHistoryComponent:
+      type: object
+      properties:
+        mode:
+          type: string
+          example: "free_talk"
+          enum: ["free_talk"]
+        image:
+          type: string
+          example: "/theimageurl"
+        training_total_time:
+          description: Total amount of time the user has been training
+          type: string
+          example: "30 Minutes"
+        last_opened:
+          type: string
+          format: date-time
+          example: "2026-01-01T17:32:28Z"
+    TrainWithAIHistoryComponent: # Component for role play and challenge mode
+      type: object
+      properties:
+        mode:
+          type: string
+          example: "role_play"
+          enum: ["role_play", "challenge"]
+        image:
+          type: string
+          example: "/theimageurl"
+        topic:
+          type: string
+          example: "Bargaint Hunt"
+        training_total_time:
+          description: Total amount of time the user has been training
+          type: string
+          example: "30 Minutes"
+        last_opened:
+          type: string
+          format: date-time
+          example: "2026-01-01T17:32:28Z"
