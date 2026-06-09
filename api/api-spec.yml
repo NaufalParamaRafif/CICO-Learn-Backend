@@ -167,19 +167,19 @@ paths:
   # /train_with_ai:
     # get:
     # post:
-  /train_with_ai/mode:
-    get:
-      description: desc
-      tags:
-        - Train with AI
-      summary: sumary
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TrainWithAIModeGetStatusOK"
+  # /train_with_ai/mode:
+  #   get:
+  #     description: desc
+  #     tags:
+  #       - Train with AI
+  #     summary: sumary
+  #     responses:
+  #       "200":
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/TrainWithAIModeGetStatusOK"
   /train_with_ai/topics:
     # Add params mode
     get:
@@ -193,7 +193,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TrainWithAITopicsGetStatusOK"
-  /train_with_ai/history:
+  /train_with_ai/histories:
     # Todo: All history auth
     get:
       summary: Get all history
@@ -221,7 +221,7 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/MemorizeGetStatusOK"
-  /memorize/history:
+  /memorize/histories:
     get:
       tags:
         - Memorize
@@ -292,7 +292,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/VocabularyLessonExamplesGetStatusOK"
 
-  /lesson/vocabulary/type_words:
+  /lesson/vocabulary/type_word:
     # Todo: Add params
     post:
       tags:
@@ -304,7 +304,6 @@ paths:
           content:
             application/json:
               schema:
-
                $ref: "#/components/schemas/VocabularyLessonTypeWordPostStatusOK"
 
   /lesson/vocabulary/write_three_sentences:
@@ -619,7 +618,7 @@ components:
             type: string
             format: time
           example: ["12:00", "15:00"]
-        time target:
+        time_target:
           # Todo: (???)
           type: string
           enum: ["5 Minutes", "10 Minutes", "15 Minutes", "30 Minutes", "45 Minutes", "1 Hour", "2 Hours"]
@@ -638,14 +637,14 @@ components:
             title:
               type: string
               example: "Vocab for Today"
-            vocab_total:
+            vocabulary_total:
               type: integer
               example: 100
-            vocab_have_learned:
+            vocabulary_have_learned:
               description: Total vocab have learned this day
               type: integer
               example: 3
-            vocab_must_learned:
+            vocabulary_must_learned:
               description: Total vocab must learned this day
               type: integer
               example: 12
@@ -660,14 +659,14 @@ components:
               title:
                 type: string
                 example: "Introduction at Office"
-              vocab_total:
+              vocabulary_total:
                 type: integer
                 example: 499
-              vocab_have_learned:
+              vocabulary_have_learned:
                 description: Total vocab have learned this day
                 type: integer
                 example: 3
-              vocab_must_learned:
+              vocabulary_must_learned:
                 description: Total vocab must learned this day
                 type: integer
                 example: 4
@@ -689,14 +688,14 @@ components:
                 type: string
                 format: date-time
                 example: "2026-01-01T17:32:28Z"
-              vocab_total:
+              vocabulary_total:
                 type: integer
                 example: 499
-              vocab_have_learned:
+              vocabulary_have_learned:
                 description: Total vocab have learned this day
                 type: integer
                 example: 3
-              vocab_must_learned:
+              vocabulary_must_learned:
                 description: Total vocab must learned this day
                 type: integer
                 example: 4
@@ -709,9 +708,26 @@ components:
           type: array
           items:
             type: object
-            oneOf:
-              - $ref: "#/components/schemas/TrainWithAIFreeTalkHistoryComponent"
-              - $ref: "#/components/schemas/TrainWithAIHistoryComponent"
+            properties:
+              mode:
+                type: string
+                example: "role_play"
+                enum: ["role_play", "challenge"]
+              image:
+                type: string
+                example: "/theimageurl"
+              topic:
+                type: string
+                nullable: true
+                example: "Bargaint Hunt"
+              total_training_time:
+                description: Total amount of time the user has been training
+                type: string
+                example: "30 Minutes"
+              last_opened:
+                type: string
+                format: date-time
+                example: "2026-01-01T17:32:28Z"
     TrainWithAIModeGetStatusOK:
       type: object
       properties:
@@ -759,7 +775,7 @@ components:
         description:
           type: string
           example: "This is most common foods and beverage for a lot of native speaker"
-        vocabularies:
+        vocabulary:
           type: array
           items:
             type: object
@@ -853,7 +869,7 @@ components:
         typed_word: 
           type: string
           example: "Enchannce"
-        correct: 
+        is_correct: 
           type: boolean
           example: false
 
@@ -909,7 +925,7 @@ components:
           type: string
           example: "Words"
           # enum: ["Words", "Sayings"...]
-        vocab:
+        vocabulary_term:
           type: string
           example: "Enhance"
         overall_score:
@@ -935,6 +951,9 @@ components:
               title:
                 type: string
                 example: "Introduction to Nouns"
+              section_order:
+                type: integer
+                example: 1
               explanations:
                 type: array
                 items:
@@ -943,11 +962,14 @@ components:
                     text:
                       type: string 
                       example: ""
+                    order:
+                      type: integer
+                      example:
                     type:
                       type: string
                       example:
                       enum: ["header", "explanation"]
-                example: [{text: "Pengertian Pronoun (What is Pronoun?)", type: "header"}, {text: "Pronoun adalah kata yang digunakan untuk mengganti noun. Dalam hal ini, noun bisa jadi seseorang, suatu benda, tempat, bahkan tindakan atau gagasan. Yap, benda tersebut bisa jadi benda mati atau benda hidup.", type: "explanation"}]
+                example: [{order: 1, text: "Pengertian Pronoun (What is Pronoun?)", type: "header"}, {order: 2, text: "Pronoun adalah kata yang digunakan untuk mengganti noun. Dalam hal ini, noun bisa jadi seseorang, suatu benda, tempat, bahkan tindakan atau gagasan. Yap, benda tersebut bisa jadi benda mati atau benda hidup.", type: "explanation"}]
               exercise:
                 # Todo: correct the url
                 type: string
@@ -1001,12 +1023,18 @@ components:
             type: object
             properties:
               # Todo: Add sound normal and slow
-              dialogs:
+              order_dialog:
+                type: integer
+                example: 1
+              dialog:
                 type: string
                 example: "So it's a tool to be used to develop and enhance what you do!"
               meaning:
                 type: string
                 example: "Jadi, ini adalah alat yang dapat digunakan untuk mengembangkan dan meningkatkan apa yang Anda lakukan!"
+              is_for_user:
+                type: boolean
+                example: false
     DialogLessonPostStatusOK:
       type: object
       properties:
@@ -1033,7 +1061,7 @@ components:
         overall_accuracy:
           type: number
           format: float
-          example: 67%
+          example: 67.3
         can_continue:
           # Todo: Change the number soon
           description: Return true if there's no words that have accuracy less than 60% and overall accuracy is greater than 67%
@@ -1115,47 +1143,3 @@ components:
           format: float
           maximum: 100.0
           example: 54.5
-      
-          
-           
-
-    # Train with AI History
-    TrainWithAIFreeTalkHistoryComponent:
-      type: object
-      properties:
-        mode:
-          type: string
-          example: "free_talk"
-          enum: ["free_talk"]
-        image:
-          type: string
-          example: "/theimageurl"
-        training_total_time:
-          description: Total amount of time the user has been training
-          type: string
-          example: "30 Minutes"
-        last_opened:
-          type: string
-          format: date-time
-          example: "2026-01-01T17:32:28Z"
-    TrainWithAIHistoryComponent: # Component for role play and challenge mode
-      type: object
-      properties:
-        mode:
-          type: string
-          example: "role_play"
-          enum: ["role_play", "challenge"]
-        image:
-          type: string
-          example: "/theimageurl"
-        topic:
-          type: string
-          example: "Bargaint Hunt"
-        training_total_time:
-          description: Total amount of time the user has been training
-          type: string
-          example: "30 Minutes"
-        last_opened:
-          type: string
-          format: date-time
-          example: "2026-01-01T17:32:28Z"
