@@ -1,9 +1,11 @@
 package dto
 
+import "github.com/NaufalParamaRafif/CICO-Learn-Backend/domain"
+
 type GrammarLessonExplanation struct {
-	Text  string                       `json:"text"`
-	Order uint8                        `json:"order"`
-	Type  GrammarLessonExplanationType `json:"type"`
+	Text  string                              `json:"text"`
+	Order uint8                               `json:"order"`
+	Type  domain.GrammarLessonExplanationType `json:"type"`
 }
 
 type GrammarLessonSection struct {
@@ -13,13 +15,13 @@ type GrammarLessonSection struct {
 }
 
 type GrammarLessonExercise struct {
-	Question      string                      `json:"question"`
-	AChoice       string                      `json:"a_choice"`
-	BChoice       string                      `json:"b_choice"`
-	CChoice       string                      `json:"c_choice"`
-	DChoice       string                      `json:"d_choice"`
-	CorrectChoice GrammarLessonExerciseChoice `json:"correct_choice"`
-	Explanation   string                      `json:"explanation"`
+	Question      string                             `json:"question"`
+	AChoice       string                             `json:"a_choice"`
+	BChoice       string                             `json:"b_choice"`
+	CChoice       string                             `json:"c_choice"`
+	DChoice       string                             `json:"d_choice"`
+	CorrectChoice domain.GrammarLessonExerciseChoice `json:"correct_choice"`
+	Explanation   string                             `json:"explanation"`
 }
 
 type GrammarLessonGetStatusOKResponse struct {

@@ -1,5 +1,7 @@
 package dto
 
+import "github.com/NaufalParamaRafif/CICO-Learn-Backend/domain"
+
 type TrainWithAITopic struct {
 	Image    string `json:"image"`
 	Title    string `json:"title"`
@@ -7,11 +9,11 @@ type TrainWithAITopic struct {
 }
 
 type TrainWithAIHistory struct {
-	Mode              TrainWithAIMode `json:"mode"`
-	Image             string          `json:"image"`
-	Topic             string          `json:"topic"`
-	TotalTrainingTime string          `json:"total_training_time"` // FORMAT: 1 Minute, 30 Minutes, 1 Hour, 2 Hours
-	LastOpened        string          `json:"last_opened"`         // FORMAT: TIME WITH TIMEZONE
+	Mode              domain.TrainWithAIMode `json:"mode"`
+	Image             string                 `json:"image"`
+	Topic             string                 `json:"topic"`
+	TotalTrainingTime string                 `json:"total_training_time"` // FORMAT: 1 Minute, 30 Minutes, 1 Hour, 2 Hours
+	LastOpened        string                 `json:"last_opened"`         // FORMAT: TIME WITH TIMEZONE
 }
 
 type TrainWithAITopicsGetStatusOKResponse struct {

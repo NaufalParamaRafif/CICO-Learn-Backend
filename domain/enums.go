@@ -1,4 +1,4 @@
-package dto
+package domain
 
 type Day string
 type LessonType string
@@ -10,6 +10,7 @@ type TimeTarget string
 type TrainWithAIMode string
 type GrammarLessonExplanationType string
 type GrammarLessonExerciseChoice string
+type ExpressionType string
 
 const (
 	// Day
@@ -70,4 +71,12 @@ const (
 	BChoice GrammarLessonExerciseChoice = "b"
 	CChoice GrammarLessonExerciseChoice = "c"
 	DChoice GrammarLessonExerciseChoice = "d"
+
+	// ExpressionType
+	PhrasalVerbs ExpressionType = "phrasal_verbs"
+	Collocations ExpressionType = "collocations"
+	Phrases      ExpressionType = "phrases"
+	Idoms        ExpressionType = "idoms"
+	Sayins       ExpressionType = "sayins"
+	Proverbs     ExpressionType = "proverbs"
 )

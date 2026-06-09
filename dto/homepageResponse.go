@@ -1,5 +1,7 @@
 package dto
 
+import "github.com/NaufalParamaRafif/CICO-Learn-Backend/domain"
+
 type Announcement struct {
 	Emoticon        string `json:"emoticon"`
 	Text            string `json:"text"`
@@ -7,8 +9,8 @@ type Announcement struct {
 }
 
 type Streak struct {
-	DaysStreak    []Day  `json:"days"`
-	LessonLearned uint16 `json:"lesson_learned"`
+	DaysStreak    []domain.Day `json:"days"`
+	LessonLearned uint16       `json:"lesson_learned"`
 }
 
 type RecentLessons struct {
