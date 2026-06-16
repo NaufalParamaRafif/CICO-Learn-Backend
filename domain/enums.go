@@ -11,6 +11,7 @@ type TrainWithAIMode string
 type GrammarLessonExplanationType string
 type GrammarLessonExerciseChoice string
 type ExpressionType string
+type VocabularyLessonType string
 
 const (
 	// Day
@@ -79,4 +80,8 @@ const (
 	Idoms        ExpressionType = "idoms"
 	Sayins       ExpressionType = "sayins"
 	Proverbs     ExpressionType = "proverbs"
+
+	// VocabularyLessonType
+	ExpressionVocabulary VocabularyLessonType = "expression"
+	WordVocabulary       VocabularyLessonType = "word"
 )

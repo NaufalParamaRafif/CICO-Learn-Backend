@@ -1,5 +1,7 @@
 package domain
 
+import "context"
+
 type GrammarExercise struct {
 	ID               uint
 	Question         string
@@ -9,5 +11,11 @@ type GrammarExercise struct {
 	DChoice          string
 	CorrectAnswer    GrammarLessonExerciseChoice
 	GrammarSectionID uint
-	GrammarLessonID  uint
+}
+
+type GrammarExerciseRepository interface {
+	GetByID(ctx context.Context, grammarExerciseID uint) (GrammarExercise, error)
+	Insert(ctx context.Context, grammarExercise *GrammarExercise) error
+	Update(ctx context.Context, grammarExercise *GrammarExercise) error
+	Delete(ctx context.Context, grammarExerciseID uint) error
 }

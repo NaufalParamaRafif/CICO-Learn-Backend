@@ -1,6 +1,9 @@
 package domain
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 type TimeOfDay struct {
 	Hour   uint8
@@ -25,4 +28,11 @@ type User struct {
 	Password        string
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
+}
+
+type UserRepository interface {
+	GetByID(ctx context.Context, userID uint) (User, error)
+	Insert(ctx context.Context, user *User) error
+	Update(ctx context.Context, user *User) error
+	Delete(ctx context.Context, userID uint) error
 }
