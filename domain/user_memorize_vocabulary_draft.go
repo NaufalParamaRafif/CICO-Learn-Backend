@@ -6,10 +6,10 @@ import (
 )
 
 type UserMemorizeVocabularyDraft struct {
-	ID                        uint
-	UserID                    uint
-	MemorizeVocabularyDraftID uint
-	CreatedAt                 time.Time
+	ID                        uint      `db:"id"`
+	UserID                    uint      `db:"user_id"`
+	MemorizeVocabularyDraftID uint      `db:"memorize_vocabulary_draft_id"`
+	CreatedAt                 time.Time `db:"created_at"`
 }
 
 type UserMemorizeVocabularyDraftID interface {

@@ -3,10 +3,10 @@ package domain
 import "context"
 
 type VocabularyTermExample struct {
-	ID               uint
-	Example          string
-	Meaning          string
-	VocabularyTermID uint
+	ID               uint   `db:"id"`
+	Example          string `db:"example"`
+	Meaning          string `db:"meaning"`
+	VocabularyTermID uint   `db:"vocabulary_term_id"`
 }
 
 type WordExampleRepository interface {

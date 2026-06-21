@@ -3,14 +3,15 @@ package domain
 import "context"
 
 type GrammarExercise struct {
-	ID               uint
-	Question         string
-	AChoice          string
-	BChoice          string
-	CChoice          string
-	DChoice          string
-	CorrectAnswer    GrammarLessonExerciseChoice
-	GrammarSectionID uint
+	ID                   uint                        `db:"id"`
+	GrammarExerciseOrder uint8                       `db:"grammar_exercise_order"`
+	Question             string                      `db:"question"`
+	AChoice              string                      `db:"a_choice"`
+	BChoice              string                      `db:"b_choice"`
+	CChoice              string                      `db:"c_choice"`
+	DChoice              string                      `db:"d_choice"`
+	CorrectAnswer        GrammarLessonExerciseChoice `db:"correct_answer"`
+	GrammarSectionID     uint                        `db:"grammar_section_id"`
 }
 
 type GrammarExerciseRepository interface {

@@ -3,9 +3,9 @@ package domain
 import "context"
 
 type GrammarLesson struct {
-	ID          uint
-	Topic       string
-	Description string
+	ID          uint   `db:"id"`
+	Topic       string `db:"topic"`
+	Description string `db:"description"`
 	// GrammarSections []GrammarSection
 	// Exercises       []GrammarExercise
 }

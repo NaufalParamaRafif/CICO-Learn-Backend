@@ -3,11 +3,11 @@ package domain
 import "context"
 
 type VocabularyTerm struct {
-	Image          string
-	VocabularyTerm string // TODO: FIX MIGRATIONS
-	Meaning        string
-	Synonyms       string
-	Sentence       string
+	Image          string `db:"image"`
+	VocabularyTerm string `db:"vocabulary_term"` // TODO: FIX MIGRATIONS
+	Meaning        string `db:"meaning"`
+	Synonyms       string `db:"synonyms"`
+	Sentence       string `db:"sentence"`
 	// Examples []VocabularyTermExample
 	// TODO: ADD SOUND
 }

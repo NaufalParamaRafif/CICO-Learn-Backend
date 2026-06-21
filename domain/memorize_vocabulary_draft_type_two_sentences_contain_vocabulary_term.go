@@ -6,15 +6,15 @@ import (
 )
 
 type MemorizeVocabularyDraftTypeTwoSentencesContainVocabularyTerm struct {
-	ID                        uint
-	FirstSentence             string
-	SecondSentece             string
-	Score                     float32
-	Feedback                  string
-	VocabularyTermID          uint
-	MemorizeVocabularyDraftID uint
-	CreatedAt                 time.Time
-	UpdatedAt                 time.Time
+	ID                        uint      `db:"id"`
+	FirstSentence             string    `db:"first_sentence"`
+	SecondSentece             string    `db:"second_sentece"`
+	Score                     float32   `db:"score"`
+	Feedback                  string    `db:"feedback"`
+	VocabularyTermID          uint      `db:"vocabulary_term_id"`
+	MemorizeVocabularyDraftID uint      `db:"memorize_vocabulary_draft_id"`
+	CreatedAt                 time.Time `db:"created_at"`
+	UpdatedAt                 time.Time `db:"updated_at"`
 }
 
 type MemorizeVocabularyDraftTypeTwoSentencesContainVocabularyTermRepository interface {

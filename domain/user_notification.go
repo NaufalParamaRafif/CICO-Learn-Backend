@@ -6,10 +6,10 @@ import (
 )
 
 type UserNotification struct {
-	ID             uint
-	UserID         uint
-	NotificationID uint
-	ReadAt         time.Time
+	ID             uint `db:"id"`
+	UserID         uint `db:"user_id"`
+	NotificationID uint `db:"notification_id"`
+	ReadAt         time.Time `db:"read_at"`
 }
 
 type UserNotificationRepository interface {

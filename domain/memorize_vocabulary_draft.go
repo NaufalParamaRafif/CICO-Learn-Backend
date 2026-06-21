@@ -3,9 +3,9 @@ package domain
 import "context"
 
 type MemorizeVocabularyDraft struct {
-	ID    uint
-	Name  string
-	Image string
+	ID    uint   `db:"id"`
+	Name  string `db:"name"`
+	Image string `db:"image"`
 	// TotalVocabulary       uint16
 	// HaveLearnedVocabulary uint16
 	// MustLearnedVocabulary uint16

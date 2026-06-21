@@ -6,6 +6,7 @@ import (
 )
 
 type TrainWithAIDialog struct {
+	ID                 uint
 	Mode               TrainWithAIMode
 	UserID             uint
 	TrainWithAITopicID uint

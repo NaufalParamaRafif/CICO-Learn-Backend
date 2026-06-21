@@ -3,12 +3,12 @@ package domain
 import "context"
 
 type TrainWithAITopic struct {
-	ID           uint
-	Image        string
-	ScenarioName string
-	Scenario     string
-	Rule         string
-	Mode         TrainWithAIMode
+	ID           uint            `db:"id"`
+	Image        string          `db:"image"`
+	ScenarioName string          `db:"scenario_name"`
+	Scenario     string          `db:"scenario"`
+	Rule         string          `db:"rule"`
+	Mode         TrainWithAIMode `db:"mode"`
 }
 
 type TrainWithAITopicRepository interface {

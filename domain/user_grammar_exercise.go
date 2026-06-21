@@ -3,11 +3,11 @@ package domain
 import "context"
 
 type UserGrammarExercise struct {
-	ID                uint
-	UserChoice        string
-	IsCorrect         bool
-	UserID            uint
-	GrammarExerciseID uint
+	ID                uint   `db:"id"`
+	UserChoice        string `db:"user_choice"`
+	IsCorrect         bool   `db:"is_correct"`
+	UserID            uint   `db:"user_id"`
+	GrammarExerciseID uint   `db:"grammar_exercise_id"`
 }
 
 type UserGrammarExerciseRepository interface {

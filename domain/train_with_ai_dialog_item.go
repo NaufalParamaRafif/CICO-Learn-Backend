@@ -3,11 +3,11 @@ package domain
 import "context"
 
 type TrainWithAIDialogItem struct {
-	ID                  uint
-	OrderDialog         uint16
-	Dialog              string
-	IsFromUser          bool
-	TrainWithAIDialogID uint
+	ID                  uint   `db:"id"`
+	OrderDialog         uint16 `db:"order_dialog"`
+	Dialog              string `db:"dialog"`
+	IsFromUser          bool   `db:"is_from_user"`
+	TrainWithAIDialogID uint   `db:"train_with_ai_dialog_id"`
 }
 
 type TrainWithAIDialogItemRepository interface {

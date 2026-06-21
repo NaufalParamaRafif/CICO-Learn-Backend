@@ -6,12 +6,12 @@ import (
 )
 
 type Notification struct {
-	Title     string
-	Emoticon  string
-	Message   string
-	SendAt    time.Time
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Title     string    `db:"title"`
+	Emoticon  string    `db:"emoticon"`
+	Message   string    `db:"message"`
+	SendAt    time.Time `db:"send_at"`
+	CreatedAt time.Time `db:"created_at"`
+	UpdatedAt time.Time `db:"updated_at"`
 	// UsersID []User
 }
 

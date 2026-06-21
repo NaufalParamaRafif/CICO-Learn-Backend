@@ -3,12 +3,12 @@ package domain
 import "context"
 
 type GrammarContent struct {
-	ID               uint
-	Title            string
-	Order            uint8
-	Content          string
-	Type             GrammarLessonExplanationType
-	GrammarSectionID uint
+	ID               uint                         `db:"id"`
+	Title            string                       `db:"title"`
+	Order            uint8                        `db:"grammar_content_order"`
+	Content          string                       `db:"content"`
+	Type             GrammarLessonExplanationType `db:"type"`
+	GrammarSectionID uint                         `db:"grammar_section_id"`
 }
 
 type GrammarContentRepository interface {

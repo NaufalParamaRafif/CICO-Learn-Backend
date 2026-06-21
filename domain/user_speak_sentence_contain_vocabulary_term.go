@@ -6,12 +6,12 @@ import (
 )
 
 type UserSpeakSentenceContainVocabularyTerm struct {
-	ID               uint
-	Accuracy         float32
-	Feedback         string
-	VocabularyTermID uint
-	UserID           uint
-	CreatedAt        time.Time
+	ID               uint      `db:"id"`
+	Accuracy         float32   `db:"accuracy"`
+	Feedback         string    `db:"feedback"`
+	VocabularyTermID uint      `db:"vocabulary_term_id"`
+	UserID           uint      `db:"user_id"`
+	CreatedAt        time.Time `db:"created_at"`
 }
 
 type UserSpeakSentenceContainVocabularyTermRepository interface {

@@ -3,10 +3,10 @@ package domain
 import "context"
 
 type VocabularyLesson struct {
-	ID          uint
-	Topic       string
-	Description string
-	Type        LessonType
+	ID          uint       `db:"id"`
+	Topic       string     `db:"topic"`
+	Description string     `db:"description"`
+	Type        LessonType `db:"type"`
 	// TotalVocabulary uint16
 	// Term []VocabularyTerm
 }

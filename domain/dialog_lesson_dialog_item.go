@@ -3,10 +3,10 @@ package domain
 import "context"
 
 type DialogLessonDialogItem struct {
-	ID             uint
-	Order          uint16
-	Dialog         string
-	DialogLessonID uint
+	ID             uint   `db:"id"`
+	Order          uint16 `db:"dialog_order"` // TODO:
+	Dialog         string `db:"dialog"`
+	DialogLessonID uint   `db:"dialog_lesson_id"`
 }
 
 type DialogLessonDialogItemRepository interface {

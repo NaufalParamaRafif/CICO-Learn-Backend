@@ -1,5 +1,9 @@
 package domain
 
+import (
+	"io"
+)
+
 type Day string
 type LessonType string
 type EnglishLevel string
@@ -12,6 +16,46 @@ type GrammarLessonExplanationType string
 type GrammarLessonExerciseChoice string
 type ExpressionType string
 type VocabularyLessonType string
+
+type FileInput struct {
+	Filename    string
+	ContentType string // JPEG, JPG, IMG
+	Size        int64  // KB
+	Data        io.Reader
+}
+
+type LoginResult struct {
+	AccessToken  string
+	RefreshToken string
+}
+
+type LoginInput struct {
+	Identifier string
+	Password   string
+}
+
+type RegisterInput struct {
+	FirstName *string
+	LastName  *string
+	Username  string
+	Email     string
+	Password  string
+}
+
+type UpdateUserInput struct {
+	ID              uint
+	FirstName       *string
+	LastName        *string
+	Address         *string
+	Gender          *Gender
+	ProfilePicture  *string
+	BackgroundImage *string
+	Level           *EnglishLevel
+	Language        *Language
+	Target          *Target
+	DailyReminder   *[]TimeOfDay
+	TimeTarget      *TimeTarget
+}
 
 const (
 	// Day

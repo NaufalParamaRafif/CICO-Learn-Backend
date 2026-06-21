@@ -3,11 +3,11 @@ package domain
 import "context"
 
 type UserDialogItem struct {
-	ID           uint
-	Accuracy     float32
-	Feedback     string
-	UserID       uint
-	DialogItemID uint
+	ID           uint    `db:"id"`
+	Accuracy     float32 `db:"accuracy"`
+	Feedback     string  `db:"feedback"`
+	UserID       uint    `db:"user_id"`
+	DialogItemID uint    `db:"dialog_item_id"`
 }
 
 type UserDialogItemRepository interface {

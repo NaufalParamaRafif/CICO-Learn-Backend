@@ -6,15 +6,15 @@ import (
 )
 
 type UserTypeSentenceContainVocabularyTerm struct {
-	ID               uint
-	FirstSentence    string
-	SecondSentence   string
-	ThirdSentence    string
-	Score            float32
-	Feedback         string
-	VocabularyTermID uint
-	UserID           uint
-	CreatedAt        time.Time
+	ID               uint      `db:"id"`
+	FirstSentence    string    `db:"first_sentence"`
+	SecondSentence   string    `db:"second_sentence"`
+	ThirdSentence    string    `db:"third_sentence"`
+	Score            float32   `db:"score"`
+	Feedback         string    `db:"feedback"`
+	VocabularyTermID uint      `db:"vocabulary_term_id"`
+	UserID           uint      `db:"user_id"`
+	CreatedAt        time.Time `db:"created_at"`
 }
 
 type UserTypeSentenceContainVocabularyTermRepository interface {

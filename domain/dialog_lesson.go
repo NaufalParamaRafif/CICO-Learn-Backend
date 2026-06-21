@@ -3,9 +3,9 @@ package domain
 import "context"
 
 type DialogLesson struct {
-	ID          uint
-	Topic       string
-	Description string
+	ID          uint   `db:"id"`
+	Topic       string `db:"topic"`
+	Description string `db:"description"`
 }
 
 type DialogLessonRepository interface {

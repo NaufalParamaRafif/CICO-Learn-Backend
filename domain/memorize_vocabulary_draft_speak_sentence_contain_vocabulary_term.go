@@ -6,13 +6,13 @@ import (
 )
 
 type MemorizeVocabularyDraftSpeakSentenceContainVocabularyTerm struct {
-	ID                        uint
-	Accuracy                  float32
-	Feedback                  string
-	CreatedAt                 time.Time
-	UpdatedAt                 time.Time
-	VocabularyTermID          uint
-	MemorizeVocabularyDraftID uint
+	ID                        uint      `db:"id"`
+	Accuracy                  float32   `db:"accuracy"`
+	Feedback                  string    `db:"feedback"`
+	CreatedAt                 time.Time `db:"created_at"`
+	UpdatedAt                 time.Time `db:"updated_at"`
+	VocabularyTermID          uint      `db:"vocabulary_term_id"`
+	MemorizeVocabularyDraftID uint      `db:"memorize_vocabulary_draft_id"`
 }
 
 type MemorizeVocabularyDraftSpeakSentenceContainVocabularyTermRepository interface {

@@ -6,11 +6,11 @@ import (
 )
 
 type UserTypeVocabularyTerm struct {
-	ID               uint
-	IsCorrect        bool
-	UserID           uint
-	VocabularyTermID uint
-	CreatedAt        time.Time
+	ID               uint      `db:"id"`
+	IsCorrect        bool      `db:"is_correct"`
+	UserID           uint      `db:"user_id"`
+	VocabularyTermID uint      `db:"vocabulary_term_id"`
+	CreatedAt        time.Time `db:"created_at"`
 }
 
 type UserTypeVocabularyTermRepository interface {
