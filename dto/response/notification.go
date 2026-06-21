@@ -1,4 +1,4 @@
-package dto
+package response
 
 type Notification struct {
 	Title         string `json:"title"`

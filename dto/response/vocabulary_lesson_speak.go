@@ -1,4 +1,4 @@
-package dto
+package response
 
 type VocabularyLessonSpeakGetStatusOKResponse struct {
 	Sentence        string `json:"sentence"`

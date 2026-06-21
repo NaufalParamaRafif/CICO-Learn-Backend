@@ -1,4 +1,4 @@
-package dto
+package response
 
 type VocabularyTerm struct {
 	Word    string `json:"word"`

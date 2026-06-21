@@ -1,4 +1,4 @@
-package dto
+package response
 
 type VocabularyLessonDraft struct {
 	Image       string `json:"image"`

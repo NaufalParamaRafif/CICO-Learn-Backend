@@ -1,4 +1,4 @@
-package dto
+package response
 
 type MemorizeDraft struct {
 	Image                 string `json:"image"`
