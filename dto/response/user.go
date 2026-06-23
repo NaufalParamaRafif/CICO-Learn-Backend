@@ -17,9 +17,9 @@ type UserDataResponse struct {
 	TimeTarget         string   `json:"time_target"`
 }
 
-type AvatarResponse struct {
-	Message   string `json:"message"`
-	AvatarURL string `json:"avatar_url"`
+type BackgroundImageResponse struct {
+	Message            string `json:"message"`
+	BackgroundImageURL string `json:"background_image_url"`
 }
 
 type ProfilePictureResponse struct {

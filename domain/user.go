@@ -6,26 +6,26 @@ import (
 )
 
 type TimeOfDay struct {
-	Hour   uint8
-	Minute uint8
+	Hour   string
+	Minute string
 }
 
 type User struct {
 	ID              uint         `db:"id"` // TODO KALO UDAH DAPET HAK MU PERTAHANKAN HAK MU
-	FirstName       string       `db:"first_name"`
-	LastName        string       `db:"last_name"`
+	FirstName       *string      `db:"first_name"`
+	LastName        *string      `db:"last_name"`
 	Username        string       `db:"username"`
 	Email           string       `db:"email"`
 	Password        string       `db:"password"`
-	Address         string       `db:"address"`
+	Address         *string      `db:"address"`
 	Gender          Gender       `db:"gender"`
-	ProfilePicture  string       `db:"profile_picture"`
-	BackgroundImage string       `db:"background_image"`
+	ProfilePicture  *string      `db:"profile_picture"`
+	BackgroundImage *string      `db:"background_image"`
 	Level           EnglishLevel `db:"level"`
 	Language        Language     `db:"language"`
 	Target          Target       `db:"target"`
 	DailyReminder   []TimeOfDay  `db:"daily_reminder"`
-	TimeTarget      TimeTarget   `db:"time_target"`
+	TimeTarget      *TimeTarget  `db:"time_target"`
 	CreatedAt       time.Time    `db:"created_at"`
 	UpdatedAt       *time.Time   `db:"updated_at"`
 }
@@ -46,6 +46,6 @@ type UserUseCase interface {
 	Delete(ctx context.Context, userID uint) error
 	Register(ctx context.Context, input RegisterInput) error
 	Login(ctx context.Context, input LoginInput) (*LoginResult, error)
-	UploadProfilePicture(ctx context.Context, userID uint, file *FileInput) (fileURL string, err error)
-	UploadBackgroundImage(ctx context.Context, userID uint, file *FileInput) (fileURL string, err error)
+	UploadUserImage(ctx context.Context, userID uint, file *FileInput, imageType UserImageType) (fileURL string, err error)
+	DeleteUserImage(ctx context.Context, userID uint, imageType UserImageType) error
 }

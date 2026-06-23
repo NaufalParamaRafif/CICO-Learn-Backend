@@ -1,25 +1,42 @@
 package main
 
 import (
-	"github.com/NaufalParamaRafif/CICO-Learn-Backend/controllers"
+	"context"
+	"fmt"
+	"os"
+
 	"github.com/NaufalParamaRafif/CICO-Learn-Backend/initializers"
-	"github.com/NaufalParamaRafif/CICO-Learn-Backend/middleware"
+	"github.com/NaufalParamaRafif/CICO-Learn-Backend/internal/handler"
+	"github.com/NaufalParamaRafif/CICO-Learn-Backend/internal/repository"
+	"github.com/NaufalParamaRafif/CICO-Learn-Backend/internal/usecase"
 	"github.com/gin-gonic/gin"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 func init() {
 	initializers.LoadEnvVariables()
-	initializers.ConnectToDB()
-	initializers.SyncDatabase()
+	// initializers.ConnectToDB()
+	// initializers.SyncDatabase()
 }
 
 func main() {
-	r := gin.Default()
+	route := gin.Default()
 
-	r.POST("/user/signup", controllers.Signup)
-	r.POST("/user/login", controllers.Login)
-	r.POST("/user/logout", middleware.RequireAuth, controllers.Logout)
-	r.GET("/user/validate", middleware.RequireAuth, controllers.Validate)
+	pool, err := pgxpool.New(context.Background(), os.Getenv("DATABASE_URL"))
+	if err != nil {
+		fmt.Println(err.Error())
+		panic(err.Error())
+	}
 
-	r.Run()
+	// Repository
+	userRepository := repository.NewUserRepository(pool)
+
+	// Usecase
+	userUseCase := usecase.NewUserUseCase(&userRepository)
+
+	// Handler
+	handler.NewAuthHandler(route, userUseCase)
+	handler.NewUserHandler(route, userUseCase)
+
+	route.Run()
 }

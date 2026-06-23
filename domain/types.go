@@ -14,13 +14,14 @@ type TimeTarget string
 type TrainWithAIMode string
 type GrammarLessonExplanationType string
 type GrammarLessonExerciseChoice string
-type ExpressionType string
 type VocabularyLessonType string
+type UserImageType string
+type VocabularyTermType string
 
 type FileInput struct {
 	Filename    string
-	ContentType string // JPEG, JPG, IMG
-	Size        int64  // KB
+	ContentType string
+	Size        float32 // KB
 	Data        io.Reader
 }
 
@@ -53,7 +54,7 @@ type UpdateUserInput struct {
 	Level           *EnglishLevel
 	Language        *Language
 	Target          *Target
-	DailyReminder   *[]TimeOfDay
+	DailyReminder   []TimeOfDay
 	TimeTarget      *TimeTarget
 }
 
@@ -72,12 +73,17 @@ const (
 	Grammar    LessonType = "grammar"
 	Dialog     LessonType = "dialog"
 
+	// Gender
+	Men     Gender = "men"
+	Women   Gender = "women"
+	Unknown Gender = "unknown"
+
 	// EnglishLevel
 	Fondation         EnglishLevel = "Pre-A1(foundation)"
 	Elementary        EnglishLevel = "A1(Elementary)"
 	PreIntermediate   EnglishLevel = "A2(Pre-Intermediate)"
 	Intermediate      EnglishLevel = "B1(Intermediate)"
-	UpperIntermediate EnglishLevel = "B2(Upper (Intermediate)"
+	UpperIntermediate EnglishLevel = "B2(Upper Intermediate)"
 	Advanced          EnglishLevel = "C1(Advanced)"
 	Proficiency       EnglishLevel = "C2(Proficiency)"
 
@@ -94,13 +100,13 @@ const (
 	Work                        Target = "Work"
 
 	// TimeTarget
-	FiveMinutes      TimeTarget = "5 Minutes"
-	TenMinutes       TimeTarget = "10 Minutes"
-	FifteenMinutes   TimeTarget = "15 Minutes"
-	ThirtyMinutes    TimeTarget = "30 Minutes"
-	FortyFiveMinutes TimeTarget = "45 Minutes"
-	OneHour          TimeTarget = "1 Hour"
-	TwoHours         TimeTarget = "2 Hours"
+	FiveMinutes      TimeTarget = "5 minutes"
+	TenMinutes       TimeTarget = "10 minutes"
+	FifteenMinutes   TimeTarget = "15 minutes"
+	ThirtyMinutes    TimeTarget = "30 minutes"
+	FortyFiveMinutes TimeTarget = "45 minutes"
+	OneHour          TimeTarget = "1 hour"
+	TwoHours         TimeTarget = "2 hours"
 
 	// TrainWithAIMode
 	FreeTalk  TrainWithAIMode = "free_talk"
@@ -109,7 +115,7 @@ const (
 
 	// GrammarLessonExplanationType
 	Header      GrammarLessonExplanationType = "header"
-	Explanation GrammarLessonExplanationType = "explanation"
+	Explanation GrammarLessonExplanationType = "text"
 
 	// GrammarLessonExerciseChoice
 	AChoice GrammarLessonExerciseChoice = "a"
@@ -117,15 +123,78 @@ const (
 	CChoice GrammarLessonExerciseChoice = "c"
 	DChoice GrammarLessonExerciseChoice = "d"
 
-	// ExpressionType
-	PhrasalVerbs ExpressionType = "phrasal_verbs"
-	Collocations ExpressionType = "collocations"
-	Phrases      ExpressionType = "phrases"
-	Idoms        ExpressionType = "idoms"
-	Sayins       ExpressionType = "sayins"
-	Proverbs     ExpressionType = "proverbs"
+	// VocabularyTermType
+	Word         VocabularyTermType = "word"
+	PhrasalVerbs VocabularyTermType = "phrasal_verbs"
+	Collocations VocabularyTermType = "collocations"
+	Phrases      VocabularyTermType = "phrases"
+	Idoms        VocabularyTermType = "idoms"
+	Sayins       VocabularyTermType = "sayins"
+	Proverbs     VocabularyTermType = "proverbs"
 
-	// VocabularyLessonType
-	ExpressionVocabulary VocabularyLessonType = "expression"
-	WordVocabulary       VocabularyLessonType = "word"
+	// UserImageType
+	UserImageProfile    UserImageType = "profile"
+	UserImageBackground UserImageType = "background"
 )
+
+func (eL EnglishLevel) IsValid() bool {
+	switch eL {
+	case Fondation,
+		Elementary,
+		PreIntermediate,
+		Intermediate,
+		UpperIntermediate,
+		Advanced,
+		Proficiency:
+		return true
+	default:
+		return false
+	}
+}
+
+func (g Gender) IsValid() bool {
+	switch g {
+	case Men, Women, Unknown:
+		return true
+	default:
+		return false
+	}
+}
+
+func (l Language) IsValid() bool {
+	switch l {
+	case Indonesia, English:
+		return true
+	default:
+		return false
+	}
+}
+
+func (trgt Target) IsValid() bool {
+	switch trgt {
+	case JobInterview,
+		LearningForFun,
+		StudyAbroad,
+		FluentCommunication,
+		UnderstandUniversityLecture,
+		Work:
+		return true
+	default:
+		return false
+	}
+}
+
+func (tmTrgt TimeTarget) IsValid() bool {
+	switch tmTrgt {
+	case FiveMinutes,
+		TenMinutes,
+		FifteenMinutes,
+		ThirtyMinutes,
+		FortyFiveMinutes,
+		OneHour,
+		TwoHours:
+		return true
+	default:
+		return false
+	}
+}
