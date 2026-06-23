@@ -1,27 +1,27 @@
 -- CREATE DATABASE cico_learn;
 
 CREATE TYPE gender AS ENUM ('men', 'women', 'unknown');
-CREATE TYPE english_level AS ENUM ('Pre-A1(foundation)', 'A1(Elementary)', 'A2(Pre-Intermediate)', 'B1(Intermediate)', 'B2(Upper (Intermediate)', 'C1(Advanced)', 'C2(Proficiency)');
+CREATE TYPE english_level AS ENUM ('Pre-A1(foundation)', 'A1(Elementary)', 'A2(Pre-Intermediate)', 'B1(Intermediate)', 'B2(Upper Intermediate)', 'C1(Advanced)', 'C2(Proficiency)');
 CREATE TYPE language AS ENUM ('indonesia', 'english');
 CREATE TYPE target AS ENUM ('Learning for fun', 'Job interview', 'Study abroad', 'Fluent communication', 'Understand university lecture', 'Work');
 CREATE TYPE time_target AS ENUM ('5 minutes', '10 minutes', '15 minutes', '30 minutes', '45 minutes', '1 hour', '2 hours');
 -- USERS TABLE
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
-    first_name VARCHAR NOT NULL,
+    first_name VARCHAR,
     last_name VARCHAR,
     username VARCHAR UNIQUE NOT NULL,
     email VARCHAR UNIQUE NOT NULL,
     address VARCHAR,
-    gender gender NOT NULL DEFAULT 'unknown',
+    gender gender DEFAULT 'unknown',
     profile_picture VARCHAR, 
     background_image VARCHAR, 
     level english_level DEFAULT 'Pre-A1(foundation)',
-    language language DEFAULT 'english' NOT NULL,
+    language language DEFAULT 'english',
     target target DEFAULT 'Learning for fun',
-    daily_reminder time with time zone[5],
-    time_target time_target DEFAULT '5 minutes',
-    password_hash VARCHAR NOT NULL,
+    daily_reminder time[5],
+    time_target time_target,
+    password VARCHAR NOT NULL,
     created_at timestamp with time zone DEFAULT now(), 
     updated_at timestamp with time zone
 );
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS vocabulary_terms(
     meaning VARCHAR,
     synonyms VARCHAR,
     sentence VARCHAR,
-    type vocabulary_term_type NOT NULL
+    term_type vocabulary_term_type NOT NULL
     -- vocabulary_id INT REFERENCES vocabulary(id) ON DELETE SET NULL
 );
 
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS grammar_contents(
     grammar_section_id INT REFERENCES grammar_sections(id) ON DELETE CASCADE
 );
 
-CREATE TYPE exercise_answer_choice AS ENUM ('a_choice', 'b_choice', 'c_choice', 'd_choice');
+CREATE TYPE exercise_answer_choice AS ENUM ('a', 'b', 'c', 'd');
 CREATE TABLE IF NOT EXISTS grammar_exercises(
     id SERIAL PRIMARY KEY,
     grammar_exercise_order SMALLINT,
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS user_get_notifications(
 );
 
 
-CREATE TYPE train_with_ai_mode AS ENUM ('free talk', 'challenge', 'role play');
+CREATE TYPE train_with_ai_mode AS ENUM ('free_talk', 'challenge', 'role_play');
 
 -- TRAIN WITH AI TOPICS TABLE
 CREATE TABLE IF NOT EXISTS train_with_ai_topics(
