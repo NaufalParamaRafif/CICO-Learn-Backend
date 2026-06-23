@@ -10,4 +10,12 @@ var (
 
 	ErrInvalidFileType  = errors.New("Invalid file type")
 	ErrFileSizeTooLarge = errors.New("File size too large")
+
+	ErrEmptyPassword       = errors.New("Password must be filled")
+	ErrEmptyIdentifier     = errors.New("Email or username must be filled")
+	ErrEnglishLevelInvalid = errors.New("English level is invalid")
+	ErrLanguageInvalid     = errors.New("Language is invalid")
+	ErrTargetInvalid       = errors.New("Target is invalid")
+	ErrTimeTargetInvalid   = errors.New("Time Target is invalid")
+	ErrGenderInvalid       = errors.New("Gender is invalid")
 )
